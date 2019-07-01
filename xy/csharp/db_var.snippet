@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets
+    xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>mongo表连接对象</Title>
+            <Author>刘尚乾</Author>
+            <Description>mongo表连接对象</Description>
+            <Shortcut>xy_db</Shortcut>
+        </Header>
+        <Snippet>
+            <Code Language="CSharp">
+                <![CDATA[                   
+                        var $db$ = mongo.Collection<$model$>("$tableName$");
+                ]]>
+            </Code>
+            <Imports>
+                <Import>
+                    <Namespace>net.xykj.mongo</Namespace>
+                </Import>
+            </Imports>
+            <Declarations>
+                <Literal>
+                    <ID>model</ID>
+                    <ToolTip>操作实体类型</ToolTip>
+                    <Default>model</Default>
+                </Literal>
+                <Literal>
+                    <ID>tableName</ID>
+                    <ToolTip>mongo表名称</ToolTip>
+                    <Default>tableName</Default>
+                </Literal>
+            </Declarations>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets
+    xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>API接口</Title>
+            <Author>刘尚乾</Author>
+            <Description>API代码片段</Description>
+            <Shortcut>xy_api</Shortcut>
+        </Header>
+        <Snippet>
+            <Code Language="CSharp">
+                <![CDATA[
+                    /// <summary>
+                    /// $description$
+                    /// </summary>
+                    /// <param name="parm"></param>
+                    /// <returns></returns>
+                    [XY("$author$")]
+                    public IXjson $methodName$(IDictionary<string, string> parm)
+                    {
+                        return new IXjson { IsSuccess = true };
+                    }
+                ]]>
+            </Code>
+            <Imports>
+                <Import>
+                    <Namespace></Namespace>
+                </Import>
+            </Imports>
+            <Declarations>
+                <Literal>
+                    <ID>methodName</ID>
+                    <ToolTip>方法名称</ToolTip>
+                    <Default>Method</Default>
+                </Literal>
+                <Literal>
+                    <ID>author</ID>
+                    <ToolTip>作者</ToolTip>
+                    <Default>刘尚乾</Default>
+                </Literal>
+                <Literal>
+                    <ID>description</ID>
+                    <ToolTip>描述</ToolTip>
+                    <Default>描述</Default>
+                </Literal>
+            </Declarations>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>
