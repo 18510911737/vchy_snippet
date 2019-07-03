@@ -1,0 +1,71 @@
+<CodeSnippet Format="1.1.0"
+    xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <Header>
+        <Title>xy表单布局</Title>
+        <Author>刘尚乾</Author>
+        <Description>表单布局</Description>
+        <Shortcut>xyform</Shortcut>
+        <SnippetTypes>
+            <SnippetType>Expansion</SnippetType>
+        </SnippetTypes>
+    </Header>
+    <Snippet>
+        <Code Language="html">
+            <![CDATA[
+            <%@ Page Title="" Language="C#" MasterPageFile="~/xyclient/xykj.Master" AutoEventWireup="true" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="headHolder" runat="server">
+    <style type="text/css">
+        .xynrtan-each .xynr-atinput li .baseword {
+            width: 22%;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="BodyHolder" runat="server">
+    <div class="xynr-topbartit">
+        <h5>$title$</h5>
+    </div>
+    <div class="xynr-atinput">
+        <form class="form-horizontal m-t" id="form">
+            <input type="hidden" name="active_class" value="$class$">
+            <input type="hidden" name="active_method" value="$method$">
+            <ul>  
+            <!--内容-->              
+            </ul>
+        </form>
+        <div class="input-endbtn">
+            <a href="javascript:;" class="xynr-btns-bgblue btn-primary">保存</a>
+        </div>
+        <script>
+            $$(document).ready(function () {
+                $$(".btn-primary").click(function () {
+                    xykj.Form("#form", function (msg) {
+                        xykj.alert(msg.Message, function () {
+                            window.location.reload();
+                        })
+                    });
+                })
+            })
+        </script>
+</asp:Content>
+]]>
+        </Code>
+        <Declarations>
+        <Literal>
+                <ID>title</ID>
+                <ToolTip>title</ToolTip>
+                <Default>title</Default>
+        </Literal>
+        <Literal>
+                <ID>class</ID>
+                <ToolTip>class</ToolTip>
+                <Default>class</Default>
+        </Literal>
+        <Literal>
+                <ID>method</ID>
+                <ToolTip>method</ToolTip>
+                <Default>method</Default>
+        </Literal>
+        </Declarations>
+    </Snippet>
+</CodeSnippet>
