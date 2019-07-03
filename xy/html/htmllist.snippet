@@ -1,0 +1,198 @@
+<CodeSnippet Format="1.1.0" xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <Header>
+     <Title>xy列表布局</Title>
+     <Author>刘尚乾</Author>
+     <Description>列表布局,一个tab选项卡</Description>
+    <Shortcut>xylist</Shortcut>
+    <SnippetTypes>
+      <SnippetType>Expansion</SnippetType>
+    </SnippetTypes>
+  </Header>
+  <Snippet>
+    <Code Language="html">
+                <![CDATA[
+<%@ Page Title="" Language="C#" MasterPageFile="~/xyclient/xykj.Master" AutoEventWireup="true" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="headHolder" runat="server">
+    <style type="text/css">
+        .xynrtan-each .xynr-atinput li .baseword {
+            width: 22%;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="BodyHolder" runat="server">
+    <div class="xynr-topbartit">
+        <h5>$title$</h5>
+    </div>
+    <div class="xynr-choose xynr-choosebig">
+        <!--搜索条件区域-->
+        <div class="listbig endbtn">
+            <a href="javascript:;" class="xynr-btns-blue search">立即搜索</a>
+        </div>
+    </div>
+    <div class="xynr-tab-blue">
+        <ul class="tabtit">
+            <li class="cur">查询结果</li>
+        </ul>
+        <div class="xynr-litkuangall">
+            <div class="left"><em class="xynr-litkuang" check-class="cur" check-type="all" check-form="#table .xynr-litkuang"><i></i>全选</em></div>
+            <button class="xynr-btns-blue" type="button" onclick="javascript:Delete(0)" style="margin: 0 10px;">批量删除</button>
+            <!--功能按钮区域-->
+        </div>
+        <!--table区域-->
+        <div class="xynr-tab-list">
+            <div class="xynr-tab-list-n" style="display: block;">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <thead class="tittop">
+                        <tr>
+                            <th class="xynrlist-left"></th>
+                            <!--标头区域-->
+                            $header$
+                            <th class="xynrlist-left tcenter"><b>管理</b></th>
+                        </tr>
+                    </thead>
+                    <tbody id="table">
+                        <tr style="display: none;">
+                            <td class="xynrlist-trno" colspan="7">
+                                <div>暂无记录</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!--底部页码等-->
+                <div class="xynr-tab-end">
+                    <div class="xynr-pagefull" id="paging"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <textarea id="template" style="display: none"> 
+   {#foreach $$T as record}  
+      <tr class="xynrlist-tr">
+          <!--复选框-->
+            <td class="xynrlist-empty"><em class="xynr-litkuang"  check-class="cur" data-value="{$$T.record.xykj_id}"><i></i></em></td>
+           <!--模板区域-->
+          $template$
+          <!--编辑按钮-->
+             <td class="xynrlist-empty tcenter">
+                <a class="tblue xynr-btntaninput" data-value="{$T.record.xykj_id}" onclick="Editing({$$T.record.xykj_id})">编辑</a>
+                <a class="tblue xynr-btntaninput" data-value="{$T.record.xykj_id}" onclick="Delete({$$T.record.xykj_id})">删除</a>
+             </td>  
+          </tr>
+    {#/for}  
+</textarea>
+    <div class="xynrtan-all">
+        <div class="xynrtan-allbg"></div>
+        <div class="xynrtan-allnav" style="top: 25px">
+            <div class="xynrtan-each xynrtan-oneinput" style="width: 670px; height: 350px">
+                <h3><span name="title">编辑</span><div class="tan-clo tan-close"></div>
+                </h3>
+                <div class="tanword">
+                    <!--修改比例-->
+                    <div class="xynr-atinput" style="height: 250px">
+                        <form id="formEdit">
+                            <input name="active_class" value="$active_class$" type="hidden" />
+                            <input name="active_method" value="$edit_method$" type="hidden" />
+                            <input name="key" hidden />
+                            <ul class="form-group">
+                                <!--编辑页面-->
+                                $edit_body$
+                            </ul>
+                        </form>
+                        <!--按钮-->
+                        <div class="input-endbtn"><a href="#" class="xynr-btns-bgblue btn-editcard-save" onclick="Edit()">编辑</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</asp:Content>
+    <script>
+        //窗体加载
+        $$(document).ready(function (index) {
+            Page(1);
+            $$(".search").click(function () {
+                Page(1);
+            })
+        });
+        //分页
+        function Page(index) {
+            var parm = {
+                active_class: "$active_class$",
+                active_method: "$page_method$",
+                page: index,
+                limit: 50
+            }
+            xykj.SearchData(parm, "#table", "template", "#paging", Page)
+        }
+        //删除
+        function Delete(key) {
+            var parm = {
+                active_class: "$active_class$",//固定参数 类名称
+                active_method: "$delete_method$",//固定参数 类里函数名
+                key: key
+            };
+            if (key == 0 || key == "") {
+                var keys = xykj.CheckAll(".xynr-litkuang.cur", "data-value").join(",");
+                console.log(keys);
+                if (keys.length == 0) {
+                    xykj.alert("请选择操作项！");
+                    return;
+                }
+                parm.key = keys;
+            }
+            xykj.confirm('确定要执行操作吗？', function () {
+                xykj.ajax(parm, function (res) {
+                    xykj.alert(res.Message, function () {
+                        window.location.reload();
+                    });
+                })
+            });
+        }
+        //提交编辑表单
+        function Edit() {
+            xykj.confirm('确定要执行操作吗？', function () {
+                xykj.Form("#formEdit", function (msg) {
+                    xykj.alert(msg.Message, function () {
+                        window.location.reload();
+                    })
+                });
+            });
+        }
+        //打开编辑页面
+        function Editing(key) {
+            $$('.xynrtan-oneload').parent().parent().hide();
+            $$('.xynrtan-all,.xynrtan-oneinput').show();
+            $$("[name=key]").val(key);
+        }
+    </script>
+]]>
+            </Code>
+            <Declarations>
+                <Literal>
+                    <ID>title</ID>
+                    <ToolTip>标题</ToolTip>
+                    <Default>标题</Default>
+                </Literal>
+                <Literal>
+                    <ID>active_class</ID>
+                    <ToolTip>active_class</ToolTip>
+                    <Default>active_class</Default>
+                </Literal>
+                <Literal>
+                    <ID>edit_method</ID>
+                    <ToolTip>编辑方法</ToolTip>
+                    <Default>edit_method</Default>
+                </Literal>
+                <Literal>
+                    <ID>page_method</ID>
+                    <ToolTip>分页方法</ToolTip>
+                    <Default>page_method</Default>
+                </Literal>
+                <Literal>
+                    <ID>delete_method</ID>
+                    <ToolTip>删除方法</ToolTip>
+                    <Default>delete_method</Default>
+                </Literal>            
+            </Declarations>
+  </Snippet>
+</CodeSnippet>
