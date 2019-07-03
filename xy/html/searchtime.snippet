@@ -1,10 +1,10 @@
 <CodeSnippet Format="1.1.0"
     xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
     <Header>
-        <Title>xy搜索div</Title>
+        <Title>xy搜索time</Title>
         <Author>刘尚乾</Author>
-        <Description>列表布局,一个tab选项卡</Description>
-        <Shortcut>xysdiv</Shortcut>
+        <Description>xy搜索time</Description>
+        <Shortcut>xystime</Shortcut>
         <SnippetTypes>
             <SnippetType>Expansion</SnippetType>
         </SnippetTypes>
@@ -12,10 +12,37 @@
     <Snippet>
         <Code Language="html">
             <![CDATA[
-            <div class="listbig">
-            <!--每个DIV最多三个元素--></div>
+            <li class="every xynr-choosedate"><span class="baseword">$type$：</span>
+                <div class="xynr-choosedate-con">
+                    <div class="xynr-choosedate-list choose-base">
+                        <i class="timeico"></i>
+                        <input class="calendar" auto="datetime" name="$start$" readonly>
+                    </div>
+                    <div class="xynr-choosedate-line">- </div>
+                    <div class="xynr-choosedate-list choose-base">
+                        <i class="timeico"></i>
+                        <input class="calendar" auto="datetime" name="$end$" readonly>
+                    </div>
+                </div>
+            </li>
 ]]>
         </Code>
-        <Declarations></Declarations>
+        <Declarations>
+            <Literal>
+                    <ID>type</ID>
+                    <ToolTip>搜索类型</ToolTip>
+                    <Default>搜索类型</Default>
+                </Literal>
+                <Literal>
+                    <ID>start</ID>
+                    <ToolTip>start</ToolTip>
+                    <Default>start</Default>
+                </Literal>
+                <Literal>
+                    <ID>end</ID>
+                    <ToolTip>end</ToolTip>
+                    <Default>end</Default>
+                </Literal>
+        </Declarations>
     </Snippet>
 </CodeSnippet>
